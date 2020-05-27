@@ -24,6 +24,7 @@ steps:
     script: 'sudo npm install -g newman'
 
 - task: PowerShell@2
+  displayName: "Set the user and role"
   inputs:
     targetType: 'inline'
     script: |
@@ -32,3 +33,12 @@ steps:
             Write-Host “##vso[task.setvariable variable=UserName;]*<AdministratorUserName>*”
             Write-Host “##vso[task.setvariable variable=UserPassword;]*<AdministratorUserPassword>*”
             $Env:RoleName = “administrator”
+- task: CmdLine@2
+  displayName: "Run API Tests"
+  inputs:
+    script: 'newman run prulead.postman_collection.json -e UAT.postman_environment.json — reporters cli,junit — reporter-junit-export Results\junitReport.xml'''
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
