@@ -50,9 +50,11 @@ steps:
 - task: CmdLine@2
   displayName: "Run API Tests"
   inputs:
-    script: 'newman run prulead.postman_collection.json -e UAT.postman_environment.json — reporters cli,junit — reporter-junit-export Results\junitReport.xml'''
+    script: 'newman run prulead.postman_collection.json -e UAT.postman_environment.json --reporters cli,junit --reporter-junit-export Results/junitReport.xml'
 
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
+    testResultsFiles: '$(System.DefaultWorkingDirectory)/Results/*.xml'
+    failTaskOnFailedTests: true
+    testRunTitle: 'sample'
