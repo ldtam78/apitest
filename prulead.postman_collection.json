@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "2ee857fb-3653-4636-9930-68cd3b132158",
+		"name": "prulead",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gettoken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23bfadfd-82cc-425c-ab37-e8e4e41387a5",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Get an extract access token successfully with variable 'token'!!!!!\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+							"});\r",
+							"pm.environment.set(\"token\", jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"password\": \"Prudential01\",\r\n  \"userName\": \"60000012\"\r\n}"
+				},
+				"url": {
+					"raw": "https://portal.prudential.com.vn/pru-lead/v1/authen/get-token",
+					"protocol": "https",
+					"host": [
+						"portal",
+						"prudential",
+						"com",
+						"vn"
+					],
+					"path": [
+						"pru-lead",
+						"v1",
+						"authen",
+						"get-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Completedtask",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"note\": \"gioi\",\r\n  \"status\": \"yes\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://portal.prudential.com.vn/v1/workflow/tasks/41e74f41-9e58-11ea-8a69-024262e7feef",
+					"protocol": "https",
+					"host": [
+						"portal",
+						"prudential",
+						"com",
+						"vn"
+					],
+					"path": [
+						"v1",
+						"workflow",
+						"tasks",
+						"41e74f41-9e58-11ea-8a69-024262e7feef"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Import",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://portal.prudential.com.vn/pru-lead/v1/workflow/60000012/tasks",
+					"protocol": "https",
+					"host": [
+						"portal",
+						"prudential",
+						"com",
+						"vn"
+					],
+					"path": [
+						"pru-lead",
+						"v1",
+						"workflow",
+						"60000012",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Import contact from Mobilecontact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9b3b4f2-12e5-4a19-9d2d-2286345cf03c",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Get an extract access token successfully with variable 'token'!!!!!\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"leadId\");\r",
+							"});\r",
+							"pm.environment.set(\"leadId\", jsonData.leadId);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"To thi\",\n  \"lastName\": \"Tèo\",\n  \"phoneNumber\": \"0123121234\",\n  \"source\": \"Zalo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://portal.prudential.com.vn/pru-lead/v1/workflow/60000012/process-instances",
+					"protocol": "https",
+					"host": [
+						"portal",
+						"prudential",
+						"com",
+						"vn"
+					],
+					"path": [
+						"pru-lead",
+						"v1",
+						"workflow",
+						"60000012",
+						"process-instances"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
