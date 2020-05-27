@@ -33,6 +33,20 @@ steps:
             Write-Host “##vso[task.setvariable variable=UserName;]*<AdministratorUserName>*”
             Write-Host “##vso[task.setvariable variable=UserPassword;]*<AdministratorUserPassword>*”
             $Env:RoleName = “administrator”
+
+- task: replacetokens@3
+  inputs:
+    rootDirectory: 'apitest/'
+    targetFiles: '**/*.json'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: false
+    tokenPrefix: '#{'
+    tokenSuffix: '}#'
+    useLegacyPattern: false
+    enableTelemetry: true
+
 - task: CmdLine@2
   displayName: "Run API Tests"
   inputs:
