@@ -204,14 +204,14 @@
 					"listen": "test",
 					"script": {
 						"id": "83cab267-b3d4-4f6a-b304-b8aaa8298b37",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"pm.test(\"Save temporary successfully!\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"status\");",
 							"});",
 							"pm.environment.set(\"status\", jsonData.status);"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -230,7 +230,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n \r\n  \"firstName\": \"{{firstname}}\",\r\n  \"lastName\": \"{{lastname}}\",\r\n  \"phoneNumber\": \"{{phone}}\",\r\n  \"source\": \"{{source}}\",\r\n    \"status\": \"\"\r\n}"
+					"raw": "{\r\n \r\n  \"firstName\": \"{{firstname}}\",\r\n  \"lastName\": \"{{lastname}}\",\r\n  \"phoneNumber\": \"{{phone}}\",\r\n  \"source\": \"{{source}}\",\r\n    \"status\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "https://portal.prudential.com.vn/pru-lead/v1/workflow/{{username}}/tasks/{{leadId}}",
@@ -260,7 +265,6 @@
 					"listen": "test",
 					"script": {
 						"id": "cb1ad40e-dbae-4209-97d4-ed6a912b96df",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"pm.test(\"Make appointment successfully\", function () {",
@@ -272,7 +276,8 @@
 							"    pm.expect(pm.response.text()).to.include(\"id\");",
 							"});",
 							"pm.environment.set(\"aid\", jsonData.taskActivity.id);"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -291,7 +296,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"location\": \"HCM ne\",\r\n  \"note\": \"MAke appointment\",\r\n  \"time\": \"2020-05-28T08:02:24.880Z\",\r\n  \"title\": \"Luch\"\r\n}"
+					"raw": "{\r\n  \"location\": \"HCM ne\",\r\n  \"note\": \"MAke appointment\",\r\n  \"time\": \"2020-05-28T08:02:24.880Z\",\r\n  \"title\": \"Luch\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "https://portal.prudential.com.vn/pru-lead/v1/workflow/{{username}}/tasks/{{leadId}}/activities",
@@ -322,7 +332,6 @@
 					"listen": "test",
 					"script": {
 						"id": "d61d287a-652a-4a69-a27c-b947663affb5",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"pm.test(\"Remake appointment successfully!\", function () {",
@@ -330,7 +339,8 @@
 							"});",
 							"pm.environment.set(\"statusp\", jsonData.status);",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -349,7 +359,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"location\": \"HCM ne\",\r\n  \"note\": \"MAke appointment\",\r\n  \"time\": \"2020-05-30T08:02:24.880Z\",\r\n  \"title\": \"Luch\"\r\n}"
+					"raw": "{\r\n  \"location\": \"HCM ne\",\r\n  \"note\": \"MAke appointment\",\r\n  \"time\": \"2020-05-30T08:02:24.880+0000\",\r\n  \"title\": \"Change Luch Time\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "https://portal.prudential.com.vn/pru-lead/v1/workflow/{{username}}/tasks/{{leadId}}/activities/{{aid}}",
@@ -381,14 +396,14 @@
 					"listen": "test",
 					"script": {
 						"id": "e3ed4135-9bdf-416b-bb72-6ba6d68c89d1",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"pm.test(\"Update appointment successfully!\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"successed\");",
 							"});",
 							"pm.environment.set(\"status\", jsonData.status);"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -405,10 +420,6 @@
 				},
 				"method": "PUT",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "https://portal.prudential.com.vn/pru-lead/v1/workflow/{{username}}/tasks/{{leadId}}/activities/{{aid}}/status/done",
 					"protocol": "https",
