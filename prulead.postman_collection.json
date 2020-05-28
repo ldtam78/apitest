@@ -1,7 +1,7 @@
 {
 	"info": {
-		"name": "prulead",
 		"_postman_id": "2c273851-0c07-1c63-7bb6-8a915b101259",
+		"name": "prulead",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -12,7 +12,6 @@
 					"listen": "test",
 					"script": {
 						"id": "9badd7a9-7982-4617-b1d6-da9082c200f2",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"pm.test(\"Login to the system\", function () {",
@@ -20,17 +19,18 @@
 							"});",
 							"pm.environment.set(\"token\", jsonData.access_token);",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				},
 				{
 					"listen": "prerequest",
 					"script": {
 						"id": "091a0b67-594a-454e-bbe4-c5e7d95f59cb",
-						"type": "text/javascript",
 						"exec": [
 							"pm.environment.set(\"username\", \"60000012\");"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -72,13 +72,13 @@
 					"listen": "test",
 					"script": {
 						"id": "abc46866-f4d7-4b28-b771-c6e20d9eb46b",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"pm.test(\"View Prospects List\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"LEADS\");",
 							"});"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -95,7 +95,6 @@
 				},
 				"method": "GET",
 				"header": [],
-				"body": {},
 				"url": {
 					"raw": "https://portal.prudential.com.vn/pru-lead/v1/workflow/{{username}}/tasks",
 					"protocol": "https",
@@ -123,7 +122,6 @@
 					"listen": "test",
 					"script": {
 						"id": "0a6a5e9e-8168-4f45-88f0-dd199c7c8233",
-						"type": "text/javascript",
 						"exec": [
 							"var jsonData = pm.response.json();",
 							"",
@@ -152,7 +150,8 @@
 							"pm.environment.set(\"leadId\", jsonData.taskInstance.leadId);",
 							"",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -171,7 +170,12 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"firstName\": \"Steeven\",\r\n  \"lastName\": \"Balan\",\r\n  \"phoneNumber\": \"012131212\",\r\n  \"source\": \"Zalo\"\r\n}"
+					"raw": "{\r\n  \"firstName\": \"Steeven\",\r\n  \"lastName\": \"Balan\",\r\n  \"phoneNumber\": \"012131212\",\r\n  \"source\": \"Zalo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "https://portal.prudential.com.vn/pru-lead/v1/workflow/{{username}}/process-instances",
@@ -430,5 +434,6 @@
 			},
 			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
